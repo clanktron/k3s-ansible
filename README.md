@@ -76,4 +76,4 @@ scp debian@master_ip:~/.kube/config ~/.kube/config
 Thanks to these repos for code and ideas:
 
 * [k3s-io/k3s-ansible](https://github.com/k3s-io/k3s-ansible)
-* [technotim/k3s-ansible](https://github.com/technotim/k3s-ansible)
+* [techno-tim/k3s-ansible](https://github.com/techno-tim/k3s-ansible)
