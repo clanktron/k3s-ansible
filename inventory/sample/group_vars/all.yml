@@ -10,6 +10,9 @@ system_timezone: "America/Los_Angeles"
 # interface which will be used for cilium
 cilium_iface: "eth0"
 
+# desired values for cilium helm install
+cilium_values: " --version 1.12.1 --set operator.replicas=1 "
+
 # apiserver_endpoint is virtual ip-address which will be configured on each master
 # if you have less than two master nodes you must set this to your master's ip 
 apiserver_endpoint: "10.0.0.40"
