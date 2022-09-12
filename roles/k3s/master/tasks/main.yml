@@ -77,22 +77,6 @@
   args:
     warn: false  # The ansible systemd module does not support transient units
 
-- name: Add cilium helm repo
-  kubernetes.core.helm_repository:
-    name: cilium
-    repo_url: "https://helm.cilium.io/"
-
-- name: Install cilium chart
-  command:
-    cmd: "helm install cilium cilium/cilium -n kube-system {{ cilium_values }}"
-
-# - name: Install cilium chart
-#   kubernetes.core.helm:
-#       name: cilium
-#       namespace: kube-system
-#       chart_ref: cilium/cilium
-#       values: "{{ cilium_values }}"
-
 - name: Verification
   block:
     - name: Verify that all nodes actually joined (check k3s-init.service if this fails)
@@ -187,3 +171,29 @@
     src: /usr/local/bin/k3s
     dest: /usr/local/bin/crictl
     state: link
+
+- name: Pull helm install script
+  command: >-
+    curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+
+- name: Change helm install script permissions
+  command: >-
+    chmod 700 get_helm.sh
+
+- name: Install helm
+  command: >-
+    ./get_helm.sh
+
+- name: Confirm helm is installed
+  ansible.builtin.wait_for:
+    path: /usr/local/bin/helm
+    state: present
+
+- name: Add cilium helm repo
+  kubernetes.core.helm_repository:
+    name: cilium
+    repo_url: "https://helm.cilium.io/"
+
+- name: Install cilium chart
+  command:
+    cmd: "helm install cilium cilium/cilium -n kube-system {{ cilium_values }} --kubeconfig ~{{ ansible_user }}/.kube/config"
