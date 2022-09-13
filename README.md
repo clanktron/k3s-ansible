@@ -1,10 +1,11 @@
 # Automated build of HA k3s Cluster with `kube-vip`, Cilium, and MetalLB
 
-This playbook will build an HA Kubernetes cluster with `k3s`, `kube-vip`, MetalLB, and Cilium via `ansible`.
+This playbook will build a HA Kubernetes cluster with `k3s`, `kube-vip`, MetalLB, and Cilium via `ansible`.
+>Cilium installation is done via helm to ensure easy upgrades and future customization of values
 
 ## 📖 k3s Ansible Playbook
 
-Build a Kubernetes cluster using Ansible with k3s. The goal is easily install a HA Kubernetes cluster on machines running:
+Build a Kubernetes cluster with a built-in service mesh using Ansible with k3s. The goal is easily install a HA Kubernetes cluster on machines running:
 
 - [X] Debian
 - [X] Ubuntu
