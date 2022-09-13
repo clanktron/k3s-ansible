@@ -172,23 +172,6 @@
     dest: /usr/local/bin/crictl
     state: link
 
-- name: Pull helm install script
-  command: >-
-    curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-
-- name: Change helm install script permissions
-  command: >-
-    chmod 700 get_helm.sh
-
-- name: Install helm
-  command: >-
-    ./get_helm.sh
-
-- name: Confirm helm is installed
-  ansible.builtin.wait_for:
-    path: /usr/local/bin/helm
-    state: present
-
 - name: Add cilium helm repo
   kubernetes.core.helm_repository:
     name: cilium
