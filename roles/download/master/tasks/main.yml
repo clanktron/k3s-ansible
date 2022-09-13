@@ -34,3 +34,26 @@
   when:
     - ansible_facts.architecture is search("arm")
     - ansible_facts.userspace_bits == "32"
+
+- name: Download helm install script
+  get_url:
+    url: https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+    dest: ~{{ ansible_user }}
+    owner: root
+    group: root
+    mode: 0700
+
+- name: Install helm
+  command: >-
+    ./get-helm-3
+
+- name: Confirm helm is installed
+  wait_for:
+    path: /usr/local/bin/helm
+    state: present
+
+- name: Remove helm install script
+  file:
+    path: ~{{ ansible_user }}/get-helm-3
+    state: absent
+

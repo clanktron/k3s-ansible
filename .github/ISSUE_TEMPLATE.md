@@ -35,7 +35,8 @@ k3s_version: ""
 ansible_user: NA
 systemd_dir: ""
 
-flannel_iface: ""
+cilium_iface: ""
+cilium_values: ""
 
 apiserver_endpoint: ""
 

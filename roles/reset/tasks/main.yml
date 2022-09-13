@@ -46,6 +46,7 @@
     - /var/lib/rancher/
     - /usr/local/bin/k3s
     - /var/lib/cni/
+    - /usr/local/bin/helm
 
 - name: daemon_reload
   systemd:

@@ -67,15 +67,6 @@
     mode: 0644
   when: ansible_host == hostvars[groups['master'][0]]['ansible_host'] | default(groups['master'][0])
 
-- name: Copy cilium manifest to first master
-  template:
-    src: "cilium.yaml.j2"
-    dest: "/var/lib/rancher/k3s/server/manifests/cilium.yaml"
-    owner: root
-    group: root
-    mode: 0644
-  when: ansible_host == hostvars[groups['master'][0]]['ansible_host'] | default(groups['master'][0])
-
 - name: Init cluster inside the transient k3s-init service
   command:
     cmd: "systemd-run -p RestartSec=2 \
@@ -180,3 +171,12 @@
     src: /usr/local/bin/k3s
     dest: /usr/local/bin/crictl
     state: link
+
+- name: Add cilium helm repo
+  kubernetes.core.helm_repository:
+    name: cilium
+    repo_url: "https://helm.cilium.io/"
+
+- name: Install cilium chart
+  command:
+    cmd: "helm install cilium cilium/cilium -n kube-system {{ cilium_values }} --kubeconfig ~{{ ansible_user }}/.kube/config"

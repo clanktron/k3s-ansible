@@ -5,15 +5,16 @@
   become: yes
   roles:
     - role: prereq
-    - role: download
     - role: raspberrypi
 
 - hosts: master
   become: yes
   roles:
+    - role: download/master
     - role: k3s/master
 
 - hosts: node
   become: yes
   roles:
+    - role: download/node
     - role: k3s/node
