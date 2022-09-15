@@ -72,7 +72,7 @@
     cmd: "systemd-run -p RestartSec=2 \
                       -p Restart=on-failure \
                       --unit=k3s-init \
-                      k3s server --flannel-backend=none --disable-network-policy --no-deploy servicelb {{ server_init_args }}"
+                      k3s server --flannel-backend=none --disable-network-policy {{ server_init_args }}"
     creates: "{{ systemd_dir }}/k3s.service"
   args:
     warn: false  # The ansible systemd module does not support transient units

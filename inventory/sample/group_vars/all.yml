@@ -21,8 +21,8 @@ apiserver_endpoint: "10.0.0.40"
 # this token should be alpha numeric only
 k3s_token: "$SUPER_SECRET_TOKEN"
 
-# change these to your liking
-extra_server_args: " --no-deploy traefik --no-deploy local-storage"
+# change these to your liking, the only mandatory value is --disable servicelb
+extra_server_args: " --disable servicelb --disable traefik --disable local-storage"
 extra_agent_args: ""
 
 # image tag for kube-vip
